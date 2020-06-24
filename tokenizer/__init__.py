@@ -1,5 +1,7 @@
 import re
 from util import Span
+import pandas as pd
+import numpy as np
 
 
 def _white_space_spans(text):
@@ -59,7 +61,22 @@ class ATokenizer:
         :param text: The string to tokenize
         :return: A list of Token objects
         """
-        raise NotImplemented('Tokenizer not implemented.')
+        output = []
+
+        tokenized = re.split('([\<\>\[\]\{\}\(\)\s])',txt)
+
+        for t in tokenized:
+            if len(t.strip()) > 0:
+                if re.match("^\d+?\.\d+?$",t) is None:
+                    if re.match("^[\d\-]\d*?$",t) is None:
+                        output.append(t)
+                    else:
+                        output.append(int(t))
+                else:
+                    output.append(float(t))
+        return output
+
+
 
 
 class WhiteSpaceTokenizer(ATokenizer):
