@@ -41,11 +41,31 @@ class DistanceCalculator:
         self._deletion_cost = deletion_cost
         self._subst_cost = subst_cost
 
-    def distance(self, source, target):
+    def distance(self, source, target, m, n):
         """
         Calculates the distance between two strings.
         :param source: The source string
         :param target: The target string
+        :param m: The length of the source string
+        :param n: The length of the target string
         :return: The scalar distance between the source and target.
         """
-        raise NotImplementedError('Distance calculation not implemented yet')
+        dp = [[0 for x in range(n+1)] for x in range(m+1)] 
+        for i in range(m+1): 
+            for j in range(n+1): 
+
+                if i == 0: 
+                    dp[i][j] = j 
+
+                elif j == 0: 
+                    dp[i][j] = i 
+
+                elif str1[i-1] == str2[j-1]: 
+                    dp[i][j] = dp[i-1][j-1] 
+                else: 
+                    dp[i][j] = 1 + min(dp[i][j-1],	 # Insert 
+                                    dp[i-1][j],	 # Remove 
+                                    dp[i-1][j-1]) # Replace 
+
+        return dp[m][n] 
+        
