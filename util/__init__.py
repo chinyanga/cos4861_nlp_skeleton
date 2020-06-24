@@ -41,7 +41,7 @@ class DistanceCalculator:
         self._deletion_cost = deletion_cost
         self._subst_cost = subst_cost
 
-    def distance(self, source, target, m, n):
+    def distance(source, target, m, n):
         """
         Calculates the distance between two strings.
         :param source: The source string
@@ -68,4 +68,8 @@ class DistanceCalculator:
                                     dp[i-1][j-1]) # Replace 
 
         return dp[m][n] 
-        
+
+str1 = input("Enter first string ")
+str2 = input("Enter second string ")
+
+print(distance(str1, str2, len(str1), len(str2))) 
